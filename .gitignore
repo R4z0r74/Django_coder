@@ -1,0 +1,16 @@
+#Python
+*.pyc
+__pychache__/
+build/
+dist/
+venv/
+.cache/
+.pytest_cache/
+pygsheets.eeg-info/
+.pytest_cache/
+media/*
+
+
+#Other
+.DS_Store
+.coverage

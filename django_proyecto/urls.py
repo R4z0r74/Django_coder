@@ -23,4 +23,5 @@ path("admin/", admin.site.urls),
 path("saludo/", saludar),
 path("diaDeHoy", diaDeHoy),
 path("miNombreEs/<nombre>", miNombreEs),
+path("saludar_html", saludar_html),
 ]

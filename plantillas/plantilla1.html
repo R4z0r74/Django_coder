@@ -6,7 +6,21 @@
     <title>Plantilla 1</title>
 </head>
 <body>
-    <!--El sirve para pasar info de otro lado-->
-    <p>"Hola estos son los datos: {{comision}}, {{alumno}},{{tutores}}</p>
+    <!--Los corchetes sirven para pasar info de otro lado-->
+    <h1>Hola les saluda {{profesor}}</h1>
+    <h3>Alumnos inscriptos</h3>
+    <ul>
+        {% for estudiante in estudiantes %}
+        <li>
+            {{ estudiante.apellido }}, {{ estudiante.nombre }}
+            {% if estudiante.nota >= 5 %}
+                APROBADO
+            {% else %}
+                REPROBADO
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    
 </body>
 </html>

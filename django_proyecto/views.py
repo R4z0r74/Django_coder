@@ -33,3 +33,20 @@ def saludar_html(request):
         context=context,
     )
     return http_response
+
+def listar_estudiantes(request):
+    contexto = {
+        "profesor" : "Pablo",
+        "estudiantes": [
+        {"nombre": "Emanuel", "apellido": "Dautel", "nota":10},
+        {"nombre": "Manuela", "apellido": "Gomez",  "nota":4},
+        {"nombre": "Ivan", "apellido": "Tomasevich", "nota":7},
+        {"nombre": "Carlos", "apellido": "Perez", "nota":2},
+        ]
+    }
+    http_response = render(
+        request=request,
+        template_name= "plantilla1.html",
+        context=contexto,
+    )
+    return http_response

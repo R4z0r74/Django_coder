@@ -24,4 +24,5 @@ path("saludo/", saludar),
 path("diaDeHoy", diaDeHoy),
 path("miNombreEs/<nombre>", miNombreEs),
 path("saludar_html", saludar_html),
+path("bienvenida_alumnos", listar_estudiantes),
 ]

@@ -4,6 +4,7 @@ from control_estudios.views import *
 #URL especificas de la app
 
 urlpatterns = [
-path("estudiantes/", listar_estudiantes),
+path("estudiantes/", listar_estudiantes, name="lista_estudiantes"),
+path("cursos/", listar_cursos, name="lista_cursos"),
 
 ]

@@ -21,11 +21,16 @@ from django_proyecto.views import *
 
 urlpatterns = [
 path("admin/", admin.site.urls),
+path("", inicio, name="inicio"),
+
 #Anexo las url de control estudios bajo el path estudios/
 path("estudios/",include("control_estudios.url")),
-path("saludo/", saludar),
-path("diaDeHoy", diaDeHoy),
-path("miNombreEs/<nombre>", miNombreEs),
-path("saludar_html", saludar_html),
+
+
+#Path de pracitca
+#path("inicio/", saludar),
+#path("diaDeHoy", diaDeHoy),
+#path("miNombreEs/<nombre>", miNombreEs),
+
 
 ]

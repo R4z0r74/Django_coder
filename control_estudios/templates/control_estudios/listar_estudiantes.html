@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plantilla 1</title>
-</head>
-<body>
-    <!--Los corchetes sirven para pasar info de otro lado-->
-    <h1>Hola les saluda {{profesor}}</h1>
-    <h3>Alumnos inscriptos</h3>
-    <ul>
-        {% for estudiante in estudiantes %}
-        <li>
-            {{ estudiante.apellido }}, {{ estudiante.nombre }}
-            {% if estudiante.nota >= 5 %}
-                APROBADO
-            {% else %}
-                REPROBADO
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-    
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block titulo %}
+Lista de estudiantes
+{% endblock titulo%}
+
+{% block contenido%}
+<!--Los corchetes sirven para pasar info de otro lado-->
+<h3>Alumnos inscriptos:</h3>
+<ul>
+     {% for estudiante in estudiantes %}
+    <li>
+        {{ estudiante.apellido }}, {{ estudiante.nombre }}
+        {% if estudiante.nota >= 5 %}
+            APROBADO
+        {% else %}
+            REPROBADO
+        {% endif %}
+     </li>
+    {% endfor %}
+</ul>
+{% endblock contenido%}

@@ -30,3 +30,12 @@ def saludar_html(request):
     )
     return http_response
 
+def inicio(request):
+    context = {}
+    http_response = render(
+        request=request,
+        template_name="inicio.html",
+        context=context,
+    )
+    return http_response
+

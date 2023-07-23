@@ -47,7 +47,7 @@ def curso_formulario(request):
 
             print(miFormulario)
  
-            if miFormulario.is_valid: #Si paso la validacion de django
+            if miFormulario.is_valid(): #Si paso la validacion de django
                   informacion = miFormulario.cleaned_data
                   curso = Curso(nombre=informacion["curso"], comision=informacion["comision"])
                   curso.save()
@@ -66,15 +66,36 @@ def estudiante_formulario(request):
 
             print(miFormulario)
  
-            if miFormulario.is_valid: #Si paso la validacion de django
+            if miFormulario.is_valid(): #Si paso la validacion de django
                   informacion = miFormulario.cleaned_data
-                  estudiante = Curso(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"],fecha_nacimiento=informacion["fecha_nacimiento"])
+                  estudiante = Estudiante(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"])
                   estudiante.save()
                   return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
       else:
             miFormulario = Estudiante_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/estudiante_formulario.html", {"miFormulario": miFormulario})
+
+def profesor_formulario(request):
+ 
+      if request.method == "POST":
+ 
+            miFormulario = Profesor_formulario(request.POST) # Aqui me llega la informacion del html
+
+            print(miFormulario)
+ 
+            if miFormulario.is_valid(): #Si paso la validacion de django
+                  informacion = miFormulario.cleaned_data
+                  estudiante = Profesor(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"],profesion=informacion["profesion"],bio=informacion["bio"])
+                  estudiante.save()
+                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+      else:
+            miFormulario = Profesor_formulario() #Formulario vacio para construir el html
+ 
+      return render(request, "control_estudios/profesor_formulario.html", {"miFormulario": miFormulario})
+
+
+
 
 
 

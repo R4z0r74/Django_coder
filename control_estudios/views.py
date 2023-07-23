@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from control_estudios.models import *
-from control_estudios.forms import Curso_formulario
+from control_estudios.forms import *
 
 # Create your views here.
 
@@ -56,6 +56,25 @@ def curso_formulario(request):
             miFormulario = Curso_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/curso_formulario.html", {"miFormulario": miFormulario})
+
+
+def estudiante_formulario(request):
+ 
+      if request.method == "POST":
+ 
+            miFormulario = Estudiante_formulario(request.POST) # Aqui me llega la informacion del html
+
+            print(miFormulario)
+ 
+            if miFormulario.is_valid: #Si paso la validacion de django
+                  informacion = miFormulario.cleaned_data
+                  estudiante = Curso(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"],fecha_nacimiento=informacion["fecha_nacimiento"])
+                  estudiante.save()
+                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+      else:
+            miFormulario = Estudiante_formulario() #Formulario vacio para construir el html
+ 
+      return render(request, "control_estudios/estudiante_formulario.html", {"miFormulario": miFormulario})
 
 
 

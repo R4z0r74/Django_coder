@@ -7,6 +7,7 @@ urlpatterns = [
 path("estudiantes/", listar_estudiantes, name="lista_estudiantes"),
 path("cursos/", listar_cursos, name="lista_cursos"),
 path('curso_formulario/', curso_formulario,  name="Curso_formulario"),
+path('estudiante_formulario/', estudiante_formulario,  name="estudiante_formulario"),
 path("busqueda_comision/", busqueda_comision, name="busqueda_comision"),
 path("buscar/", buscar, name="buscar"),
 

@@ -25,11 +25,4 @@ path("", inicio, name="inicio"),
 #Anexo las url de control estudios bajo el path estudios/
 path("estudios/",include("control_estudios.url")),
 
-
-#Path de pracitca
-#path("inicio/", saludar),
-#path("diaDeHoy", diaDeHoy),
-#path("miNombreEs/<nombre>", miNombreEs),
-
-
 ]

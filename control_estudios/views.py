@@ -5,40 +5,6 @@ from control_estudios.forms import *
 
 # Create your views here.
 
-def listar_estudiantes(request):
-    contexto = {
-        "profesor" : "Pablo",
-        "estudiantes": [
-        {"nombre": "Emanuel", "apellido": "Dautel", "nota":10},
-        {"nombre": "Manuela", "apellido": "Gomez",  "nota":4},
-        {"nombre": "Ivan", "apellido": "Tomasevich", "nota":7},
-        {"nombre": "Carlos", "apellido": "Perez", "nota":2},
-        ]
-    }
-    http_response = render(
-        request=request,
-        template_name= "control_estudios/listar_estudiantes.html",
-        context=contexto,
-    ) 
-    return http_response
-
-def listar_cursos(request):
-    # Data de pruebas, más adelante la llenaremos con nuestros cursos de verdad
-    contexto = {
-        "cursos": [
-            {"nombre": "Fisica", "comision": 1000},
-            {"nombre": "Python", "comision": 55350},
-            {"nombre": "Redes Sociales", "comision": 2000},
-        ]
-    }
-    http_response = render(
-        request=request,
-        template_name='control_estudios/listar_cursos.html',
-        context=contexto,
-    )
-    return http_response
-
- 
 def curso_formulario(request):
  
       if request.method == "POST":
@@ -120,9 +86,20 @@ def entregable_formulario(request):
 
 
 def busqueda_comision(request):
+     
      return render(request,"control_estudios/busqueda_comision.html")
 
 def buscar(request):
-     respuesta = f"Estoy buscando la comision numero: {request.GET['comision']}"
-     return HttpResponse(respuesta)
+
+     
+      if request.GET["comision"]:
+            respuesta = f"Estoy buscando la comision numero: {request.GET['comision']}"
+            comision = request.GET["comision"]
+            cursos=Curso.objects.filter(comision_icontains=comision)
+
+            return render(request, "control_estudios/inicio.html", {"cursos":cursos, "comision":comision})
+      else:
+            respuesta = "No enviaste datos"
+
+      return render(request,"control_estudios/inicio.html",{"respuesta":respuesta})
      

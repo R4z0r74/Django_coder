@@ -14,6 +14,21 @@
         <input type="number" name="comision" id="comision"> 
 
         <input type="submit" value="Enviar">
+        {% if cursos %}
+            <p>Estamos buscando el: {{ comision }}</p>
+
+            <ul>
+                {% for curso in cursos %}
+                    <li>{{ curso.nombre }}</li>
+                    <li>{{ curso.comision }}</li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <p>No hay datos con ese numero</p>
+        {% endif %}
+
+        <p>{{ respuesta }}</p>
         
     </form>   
 </body>

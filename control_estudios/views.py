@@ -95,6 +95,25 @@ def profesor_formulario(request):
       return render(request, "control_estudios/profesor_formulario.html", {"miFormulario": miFormulario})
 
 
+def entregable_formulario(request):
+ 
+      if request.method == "POST":
+ 
+            miFormulario = Entregable_formulario(request.POST) # Aqui me llega la informacion del html
+
+            print(miFormulario)
+ 
+            if miFormulario.is_valid(): #Si paso la validacion de django
+                  informacion = miFormulario.cleaned_data
+                  estudiante = Entregable(nombre=informacion["nombre"], fecha_entrega=informacion["fecha_entrega"],esta_aprobado=informacion["esta_aprobado"])
+                  estudiante.save()
+                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+      else:
+            miFormulario = Entregable_formulario() #Formulario vacio para construir el html
+ 
+      return render(request, "control_estudios/profesor_formulario.html", {"miFormulario": miFormulario})
+
+
 
 
 

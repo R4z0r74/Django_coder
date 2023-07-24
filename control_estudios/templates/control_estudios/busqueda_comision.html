@@ -1,35 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario - Busqueda comision</title>
-</head>
-<body>
-    <h1>Busqueda comision</h1>
 
-    <form action="{% url 'buscar' %}" method="GET">
 
-        <input type="number" name="comision" id="comision"> 
 
-        <input type="submit" value="Enviar">
-        {% if cursos %}
-            <p>Estamos buscando el: {{ comision }}</p>
+{%  extends 'base.html' %}
 
-            <ul>
-                {% for curso in cursos %}
-                    <li>{{ curso.nombre }}</li>
-                    <li>{{ curso.comision }}</li>
-                {% endfor %}
-            </ul>
+{% block titulo %}
+Formulario entregable
+{% endblock titulo %}
 
-        {% else %}
-            <p>No hay datos con ese numero</p>
-        {% endif %}
+{% load static %}
 
-        <p>{{ respuesta }}</p>
+{% block contenido %}
+<h1>Busqueda comision</h1>
+
+<form action="{% url 'buscar' %}" method="GET">
+
+    <input type="number" name="comision" id="comision"> 
+
+    <input type="submit" value="Enviar">
+
+    {% if cursos  %}
+        <p>Estamos buscando el: {{ comision }}</p>
+
+        <ul>
+            {% for curso in cursos %}
+                <li>{{ curso.nombre }} - {{ curso.comision }}</li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No hay datos con ese numero</p>
         
-    </form>   
-</body>
-</html>
+    {% endif %}
+
+    <p>{{ respuesta }}</p>
+    
+</form>   
+
+{% endblock contenido %}

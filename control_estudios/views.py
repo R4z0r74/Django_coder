@@ -17,7 +17,7 @@ def curso_formulario(request):
                   informacion = miFormulario.cleaned_data
                   curso = Curso(nombre=informacion["curso"], comision=informacion["comision"])
                   curso.save()
-                  return render(request, "control_estudios/listar_cursos.html") #Vuelve a donde uno quiera
+                  return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
       else:
             miFormulario = Curso_formulario() #Formulario vacio para construir el html
  
@@ -36,7 +36,7 @@ def estudiante_formulario(request):
                   informacion = miFormulario.cleaned_data
                   estudiante = Estudiante(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"])
                   estudiante.save()
-                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+                  return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
       else:
             miFormulario = Estudiante_formulario() #Formulario vacio para construir el html
  
@@ -54,7 +54,7 @@ def profesor_formulario(request):
                   informacion = miFormulario.cleaned_data
                   estudiante = Profesor(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"],profesion=informacion["profesion"],bio=informacion["bio"])
                   estudiante.save()
-                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+                  return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
       else:
             miFormulario = Profesor_formulario() #Formulario vacio para construir el html
  
@@ -73,33 +73,32 @@ def entregable_formulario(request):
                   informacion = miFormulario.cleaned_data
                   estudiante = Entregable(nombre=informacion["nombre"], fecha_entrega=informacion["fecha_entrega"],esta_aprobado=informacion["esta_aprobado"])
                   estudiante.save()
-                  return render(request, "control_estudios/listar_estudiantes.html") #Vuelve a donde uno quiera
+                  return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
       else:
             miFormulario = Entregable_formulario() #Formulario vacio para construir el html
  
-      return render(request, "control_estudios/profesor_formulario.html", {"miFormulario": miFormulario})
-
-
-
-
-
-
+      return render(request, "control_estudios/entregable_formulario.html", {"miFormulario": miFormulario})
 
 def busqueda_comision(request):
      
      return render(request,"control_estudios/busqueda_comision.html")
 
+
 def buscar(request):
+    comision = request.GET.get("comision", "")
+    
+    if comision:
+        cursos = Curso.objects.filter(comision__icontains=comision)
+        if cursos.exists():
+            return render(request, "control_estudios/busqueda_comision.html", {"cursos": cursos, "comision": comision})
+        else:
+            mensaje_error = f"No se encontraron cursos para la comisión: {comision}"
+            return render(request, "control_estudios/busqueda_comision.html", {"mensaje_error": mensaje_error})
+    else:
+        mensaje_error = "No se proporcionó ninguna comisión para buscar"
+        return render(request, "control_estudios/busqueda_comision.html", {"mensaje_error": mensaje_error})
 
-     
-      if request.GET["comision"]:
-            respuesta = f"Estoy buscando la comision numero: {request.GET['comision']}"
-            comision = request.GET["comision"]
-            cursos=Curso.objects.filter(comision_icontains=comision)
 
-            return render(request, "control_estudios/inicio.html", {"cursos":cursos, "comision":comision})
-      else:
-            respuesta = "No enviaste datos"
-
-      return render(request,"control_estudios/inicio.html",{"respuesta":respuesta})
+def exito(request):
+    return render(request, "control_estudios/exito.html")
      

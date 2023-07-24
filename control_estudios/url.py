@@ -10,5 +10,6 @@ path('profesor_formulario/', profesor_formulario,  name="profesor_formulario"),
 path('entregable_formulario/', entregable_formulario,  name="entregable_formulario"),
 path("busqueda_comision/", busqueda_comision, name="busqueda_comision"),
 path("buscar/", buscar, name="buscar"),
+path("exito/", exito, name="exito"),
 
 ]

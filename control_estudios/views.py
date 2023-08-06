@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from control_estudios.models import *
 from control_estudios.forms import *
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+
 
 # Create your views here.
 
@@ -156,4 +158,26 @@ def editar_curso(request, id):
         context={'formulario': miformulario},
     )
   
-     
+#VISTAS BASADAS EN CLASES
+
+class EstudianteListView(ListView): #Vista de lista
+   model = Estudiante
+   template_name = 'control_estudios/lista_estudiantes.html'
+
+class EstudianteCreateView(CreateView):#CREATE vista
+   model = Estudiante
+   fields = ('apellido', 'nombre', 'email', "telefono", 'dni', "fecha_nacimiento")
+   success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
+
+class EstudianteDetailView(DetailView): #Vista detallada
+   model = Estudiante
+   success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
+
+class EstudianteUpdateView(UpdateView): #UPDATE vista
+   model = Estudiante
+   fields = ('apellido', 'nombre', 'email', "telefono", 'dni', "fecha_nacimiento")
+   success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
+
+class EstudianteDeleteView(DeleteView): #Delete vista
+   model = Estudiante
+   success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa

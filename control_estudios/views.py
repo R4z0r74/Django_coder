@@ -18,7 +18,7 @@ def curso_formulario(request):
                   curso = Curso(nombre=informacion["curso"], comision=informacion["comision"])
                   curso.save()
                   return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
-      else:
+      else: # GET
             miFormulario = Curso_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/curso_formulario.html", {"miFormulario": miFormulario})
@@ -37,7 +37,7 @@ def estudiante_formulario(request):
                   estudiante = Estudiante(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"])
                   estudiante.save()
                   return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
-      else:
+      else: # GET
             miFormulario = Estudiante_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/estudiante_formulario.html", {"miFormulario": miFormulario})
@@ -55,7 +55,7 @@ def profesor_formulario(request):
                   estudiante = Profesor(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"],profesion=informacion["profesion"],bio=informacion["bio"])
                   estudiante.save()
                   return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
-      else:
+      else: # GET
             miFormulario = Profesor_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/profesor_formulario.html", {"miFormulario": miFormulario})
@@ -74,7 +74,7 @@ def entregable_formulario(request):
                   estudiante = Entregable(nombre=informacion["nombre"], fecha_entrega=informacion["fecha_entrega"],esta_aprobado=informacion["esta_aprobado"])
                   estudiante.save()
                   return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
-      else:
+      else: # GET
             miFormulario = Entregable_formulario() #Formulario vacio para construir el html
  
       return render(request, "control_estudios/entregable_formulario.html", {"miFormulario": miFormulario})
@@ -101,4 +101,15 @@ def buscar(request):
 
 def exito(request):
     return render(request, "control_estudios/exito.html")
+
+def listar_cursos(request):
+   contexto = {
+       "cursos": Curso.objects.all(),
+   }
+   http_response = render(
+       request=request,
+       template_name='control_estudios/listar_cursos.html',
+       context=contexto,
+   )
+   return http_response
      

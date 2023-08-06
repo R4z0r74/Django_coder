@@ -3,6 +3,7 @@
 {% block titulo %}
 Formulario Cursos
 {% endblock titulo %}
+
 {% load static %}
 
 {% block contenido %}
@@ -11,7 +12,7 @@ Formulario Cursos
     <p>Datos incorrectos</p>
     {% endif %}
 
-        <form action="" method="POST"> {% csrf_token %}
+        <form action="" method="POST"> {% csrf_token %} <!--Token de seguridad-->
 
             <table>
 
@@ -25,7 +26,3 @@ Formulario Cursos
         </form>  
     
 {% endblock contenido %}
-
-
-
-

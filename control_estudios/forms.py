@@ -1,8 +1,8 @@
 from django import forms
  
 class Curso_formulario(forms.Form):
-    curso = forms.CharField(required=True, max_length=64)
-    comision = forms.IntegerField(required=True)
+    nombre = forms.CharField(required=True, max_length=64)
+    comision = forms.IntegerField(required=True, max_value=50000)
 
 class Estudiante_formulario(forms.Form):
     apellido = forms.CharField(required=True, max_length=32)

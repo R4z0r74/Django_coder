@@ -12,5 +12,7 @@ path("busqueda_comision/", busqueda_comision, name="busqueda_comision"),
 path("buscar/", buscar, name="buscar"),
 path("exito/", exito, name="exito"),
 path("listar_cursos/", listar_cursos, name="listar_cursos"),
+path("eliminar_curso//<int:id>/", eliminar_curso, name="eliminar_curso"),
+path('editar_curso/<int:id>/', editar_curso, name="editar_curso"),
 
 ]

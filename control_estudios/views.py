@@ -1,27 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 from control_estudios.models import *
 from control_estudios.forms import *
 
 # Create your views here.
 
 def curso_formulario(request):
- 
-      if request.method == "POST":
- 
-            miFormulario = Curso_formulario(request.POST) # Aqui me llega la informacion del html
+    if request.method == "POST":
+        # Creo un objeto formulario con la data que envio el usuario
+        formulario = Curso_formulario(request.POST)
 
-            print(miFormulario)
- 
-            if miFormulario.is_valid(): #Si paso la validacion de django
-                  informacion = miFormulario.cleaned_data
-                  curso = Curso(nombre=informacion["curso"], comision=informacion["comision"])
-                  curso.save()
-                  return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
-      else: # GET
-            miFormulario = Curso_formulario() #Formulario vacio para construir el html
- 
-      return render(request, "control_estudios/curso_formulario.html", {"miFormulario": miFormulario})
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            #Una manera de hacerlo *
+            nombre = data["nombre"]
+            comision = data["comision"]
+            curso = Curso(nombre=nombre, comision=comision)
+            curso.save()
+            # Redirecciono al usuario a la lista de cursos
+            url_exitosa = reverse('estudios/listar_cursos/')
+            return redirect(url_exitosa)
+        
+    else:  # GET
+        formulario = Curso_formulario()
+    http_response = render(
+        request=request,
+        template_name='control_estudios/curso_formulario.html',
+        context={'formulario': formulario}
+    )
+    return http_response
+
 
 
 def estudiante_formulario(request):
@@ -34,6 +43,7 @@ def estudiante_formulario(request):
  
             if miFormulario.is_valid(): #Si paso la validacion de django
                   informacion = miFormulario.cleaned_data
+                  #Otra manera de hacerlo *
                   estudiante = Estudiante(nombre=informacion["nombre"], apellido=informacion["apellido"],email=informacion["email"],telefono=informacion["telefono"],dni=informacion["dni"], fecha_nacimiento=informacion["fecha_nacimiento"])
                   estudiante.save()
                   return render(request, "control_estudios/exito.html") #Vuelve a donde uno quiera
@@ -112,4 +122,38 @@ def listar_cursos(request):
        context=contexto,
    )
    return http_response
+
+def eliminar_curso(request, id):
+   curso = Curso.objects.get(id=id) #Obtienes el curso de la BD
+   if request.method == "POST":
+       curso.delete()
+       url_exitosa = reverse('listar_cursos') #Vuelve a donde uno quiera
+       return redirect(url_exitosa)
+
+   
+def editar_curso(request, id):
+    curso = Curso.objects.get(id=id)
+    if request.method == "POST":
+        miformulario = Curso_formulario(request.POST)
+
+        if miformulario.is_valid():
+            data = miformulario.cleaned_data
+            curso.nombre = data['nombre']
+            curso.comision = data['comision']
+            curso.save()
+            url_exitosa = reverse('listar_cursos')
+            return redirect(url_exitosa)
+        
+    else:  # GET
+        inicial = {
+            'nombre': curso.nombre,
+            'comision': curso.comision,
+        }
+        miformulario = Curso_formulario(initial=inicial)
+    return render(
+        request=request,
+        template_name='control_estudios/curso_formulario.html',
+        context={'formulario': miformulario},
+    )
+  
      

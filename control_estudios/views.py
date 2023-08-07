@@ -4,9 +4,11 @@ from django.urls import reverse, reverse_lazy
 from control_estudios.models import *
 from control_estudios.forms import *
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
 
 def curso_formulario(request):
     if request.method == "POST":
@@ -114,16 +116,22 @@ def buscar(request):
 def exito(request):
     return render(request, "control_estudios/exito.html")
 
+# Usas el login required
+@login_required
 def listar_cursos(request):
-   contexto = {
-       "cursos": Curso.objects.all(),
-   }
-   http_response = render(
-       request=request,
-       template_name='control_estudios/listar_cursos.html',
-       context=contexto,
-   )
-   return http_response
+    if not request.user.is_authenticated: # Si no esta registrado
+        return redirect("../perfiles/login") # Haces x cosa
+    else:
+        contexto = {
+            "cursos": Curso.objects.all(),
+        }
+        http_response = render(
+            request=request,
+            template_name='control_estudios/listar_cursos.html',
+            context=contexto,
+        )
+        return http_response
+
 
 def eliminar_curso(request, id):
    curso = Curso.objects.get(id=id) #Obtienes el curso de la BD

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "control_estudios",
+    "perfiles",
 ]
 
 
@@ -58,6 +59,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'plantillas/',
+            BASE_DIR / 'control_estudios/templates/',
+            BASE_DIR / 'perfiles/templates/',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -129,3 +132,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Para el funcionamiento del login
+LOGIN_URL = 'login'

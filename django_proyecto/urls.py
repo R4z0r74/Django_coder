@@ -22,7 +22,8 @@ from django_proyecto.views import *
 urlpatterns = [
 path("admin/", admin.site.urls),
 path("", inicio, name="inicio"),
-#Anexo las url de control estudios bajo el path estudios/
+#Anexo las url de control estudios bajo el path estudios/ y perfiles bajo el path perfiles/
 path("estudios/",include("control_estudios.url")),
+path("perfiles/",include("perfiles.url")),
 
 ]

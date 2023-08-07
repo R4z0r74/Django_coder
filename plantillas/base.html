@@ -27,7 +27,14 @@
                 <a class="navbar-brand" href="{% url 'estudiante_formulario' %}">Estudiantes</a>
                 <a class="navbar-brand" href="{% url 'profesor_formulario' %}">Profesor</a>
                 <a class="navbar-brand" href="{% url 'entregable_formulario' %}">Entregable</a>
-                <a class="btn btn-primary" href="#signup">Sign Up</a>
+                <!--Se le agrega codigo python ya que depende el estado que aparece-->
+                {% if user.is_authenticated %}
+                <a class="btn btn-warning" href="{% url 'logout' %}">Cierre sesión</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Inicio sesión</a>
+                <a class="btn btn-primary" href="{% url 'registro' %}">Registro</a>
+                {% endif %}
+
             </div>
         </nav>
 

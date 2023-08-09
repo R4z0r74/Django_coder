@@ -5,6 +5,7 @@ from control_estudios.models import *
 from control_estudios.forms import *
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -23,8 +24,7 @@ def curso_formulario(request):
             curso = Curso(nombre=nombre, comision=comision)
             curso.save()
             # Redirecciono al usuario a la lista de cursos
-            url_exitosa = reverse('estudios/listar_cursos/')
-            return redirect(url_exitosa)
+            return render(request, "control_estudios/exito.html")
         
     else:  # GET
         formulario = Curso_formulario()
@@ -116,7 +116,7 @@ def buscar(request):
 def exito(request):
     return render(request, "control_estudios/exito.html")
 
-# Usas el login required
+# Usas el login required para resitrigir el acceso
 @login_required
 def listar_cursos(request):
     if not request.user.is_authenticated: # Si no esta registrado
@@ -132,7 +132,8 @@ def listar_cursos(request):
         )
         return http_response
 
-
+# Usas el login required para resitrigir el acceso
+@login_required
 def eliminar_curso(request, id):
    curso = Curso.objects.get(id=id) #Obtienes el curso de la BD
    if request.method == "POST":
@@ -140,7 +141,8 @@ def eliminar_curso(request, id):
        url_exitosa = reverse('listar_cursos') #Vuelve a donde uno quiera
        return redirect(url_exitosa)
 
-   
+# Usas el login required para resitrigir el acceso
+@login_required
 def editar_curso(request, id):
     curso = Curso.objects.get(id=id)
     if request.method == "POST":
@@ -167,25 +169,25 @@ def editar_curso(request, id):
     )
   
 #VISTAS BASADAS EN CLASES
-
-class EstudianteListView(ListView): #Vista de lista
+# LoginRequiredMixin proteje como el login_required
+class EstudianteListView(LoginRequiredMixin, ListView): #Vista de lista
    model = Estudiante
    template_name = 'control_estudios/lista_estudiantes.html'
 
-class EstudianteCreateView(CreateView):#CREATE vista
+class EstudianteCreateView(LoginRequiredMixin, CreateView):#CREATE vista
    model = Estudiante
    fields = ('apellido', 'nombre', 'email', "telefono", 'dni', "fecha_nacimiento")
    success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
 
-class EstudianteDetailView(DetailView): #Vista detallada
+class EstudianteDetailView(LoginRequiredMixin, DetailView): #Vista detallada
    model = Estudiante
    success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
 
-class EstudianteUpdateView(UpdateView): #UPDATE vista
+class EstudianteUpdateView(LoginRequiredMixin, UpdateView): #UPDATE vista
    model = Estudiante
    fields = ('apellido', 'nombre', 'email', "telefono", 'dni', "fecha_nacimiento")
    success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa
 
-class EstudianteDeleteView(DeleteView): #Delete vista
+class EstudianteDeleteView(LoginRequiredMixin, DeleteView): #Delete vista
    model = Estudiante
    success_url = reverse_lazy('lista_estudiantes') #Es al url que se va a diriguir si la accion fue exitosa

@@ -1,11 +1,13 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Curso(models.Model):
 # los atributos de clase (son las columnas de la tabla)
     nombre = models.CharField(max_length=64)
     comision = models.IntegerField()
+    #Sirve para relacionar dos modelos, en esta caso user y curso. Hay que hacer makemigrations y borrar la base de datos para modificar. 
+    creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) #Ver tambiem de sacar set null por cascade y el null = true
     
     def __str__(self):
         return f"{self.nombre}"

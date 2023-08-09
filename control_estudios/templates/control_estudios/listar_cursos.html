@@ -27,8 +27,9 @@
        {% for curso in cursos %} 
        <tr>
          <td>{{ curso.id }}</td>
-         <td>{{ curso.nombre }}</td>
+         <td>{{ curso.nombre }}</td>  
          <td>{{ curso.comision }}</td>
+         <td>{{ curso.creador }}</td> <!--Modificar porque se ve creador y arriba editar-->
          <td>
             <a href="{% url 'editar_curso' curso.id %}">Editar</a>
           </td>     

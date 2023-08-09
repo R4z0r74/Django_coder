@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path
 from control_estudios.views import *
+#Para incluir los archivos media
+from django.conf import settings
+from django.conf.urls.static import static
+
 #URL especificas de la app
 
 urlpatterns = [
@@ -21,4 +25,9 @@ path('crear_estudiante/', EstudianteCreateView.as_view(), name="crear_estudiante
 path('editar_estudiante/<int:pk>/', EstudianteUpdateView.as_view(), name="editar_estudiante"),
 path('eliminar_estudiante/<int:pk>/', EstudianteDeleteView.as_view(), name="eliminar_estudiante"),
 
+
 ]
+
+
+#Sirve para incluir los archivos media: imagenes, etc
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

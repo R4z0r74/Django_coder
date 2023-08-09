@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+from perfiles.forms import *
+
+
 # Create your views here.
 
 
@@ -54,3 +59,31 @@ def login_view(request):
 
 class CustomLogoutView(LogoutView):
    template_name = 'perfiles/logout.html'
+
+#Para editar datos
+class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
+   form_class = UserUpdateForm
+   success_url = reverse_lazy('inicio')
+   template_name = 'perfiles/formulario_perfiles.html'
+
+   def get_object(self, queryset=None):
+       return self.request.user
+
+#Pára el avatar
+def agregar_avatar(request):
+  if request.method == "POST":
+      formulario = AvatarFormulario(request.POST, request.FILES) # Aquí me llega toda la info del formulario html
+
+      if formulario.is_valid():
+          avatar = formulario.save()
+          avatar.user = request.user
+          avatar.save()
+          url_exitosa = reverse('inicio')
+          return redirect(url_exitosa)
+  else:  # GET
+      formulario = AvatarFormulario()
+  return render(
+      request=request,
+      template_name="perfiles/formulario_avatar.html",
+      context={'form': formulario},
+  )

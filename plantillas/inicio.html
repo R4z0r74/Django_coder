@@ -13,6 +13,11 @@ Inicio
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+    <!--Para mostrar la imagen-->
+    <h1>Bienvenido a Coder {{user.first_name}}</h1>
+    <img src="{{ user.avatar.imagen.url }}" />
+
     <h1>Busqueda comision</h1>
 
     <form action="{% url 'buscar' %}" method="GET">
@@ -25,3 +30,4 @@ Inicio
 </body>
 </html>
 {% endblock contenido %}
+

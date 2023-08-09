@@ -10,7 +10,7 @@ class Curso(models.Model):
     creador = models.ForeignKey(User, on_delete=models.SET_NULL, null=True) #Ver tambiem de sacar set null por cascade y el null = true
     
     def __str__(self):
-        return f"{self.nombre}"
+        return f"{self.nombre}, {self.comision}"
 
 class Estudiante(models.Model):
     apellido = models.CharField(max_length=256)

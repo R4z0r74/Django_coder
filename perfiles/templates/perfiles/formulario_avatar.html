@@ -6,7 +6,8 @@ Avatar
 
 {% block contenido %}
 <h3>Subir tu Avatar</h3>
-<form method="post" enctype="multipart/form-data">
+<!--ectype permite enviar archivos mediante un formulario-->
+<form method="post" enctype="multipart/form-data"> 
  {% csrf_token %}
  {{ form.as_p }}
  <input type="submit" value="Subir imagen"/>

@@ -46,3 +46,4 @@ Editar Perfiles.
 
 El codigo de las funcionalidades se encuentra en la app de control_estudios en views.py, perfiles views.py y los html en templates.
 
+Link del video demostrativo: https://www.awesomescreenshot.com/video/20031585?key=793f64f71a8b8c62f9d081c74fb82618

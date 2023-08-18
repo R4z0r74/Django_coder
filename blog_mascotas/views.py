@@ -74,9 +74,9 @@ class ArticuloDetailView(DetailView):  # Vista detallada
 class ArticuloUpdateView(LoginRequiredMixin, UpdateView):  # UPDATE vista
     model = Articulo
     template_name = 'control_estudios/editar_articulo.html'
-    fields = ('titulo', 'subtitulo', 'cuerpo','fecha',"imagen")
+    fields = ('titulo', 'subtitulo', 'cuerpo','fecha')
     # Es al url que se va a diriguir si la accion fue exitosa
-    success_url = reverse_lazy('control_estudios/editar_articulo')
+    success_url = reverse_lazy('post_propios')
 
 class ArticuloDeleteView(LoginRequiredMixin, DeleteView):  # Delete vista
     model = Articulo

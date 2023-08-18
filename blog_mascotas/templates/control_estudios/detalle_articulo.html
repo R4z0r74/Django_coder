@@ -17,7 +17,7 @@ Detalle articulo
             </p>
             <a href="{% url 'pages' %}" class="btn btn-primary">Volver a la lista</a>
             {% if user.is_authenticated and object.autor == user %}
-                <a href="{% url 'detalle_articulo' object.pk %}" class="btn btn-info">Editar</a>
+                <a href="{% url 'editar_articulo' object.pk %}" class="btn btn-info">Editar</a>
                 <a href="{% url 'borrar_articulo' object.pk %}" class="btn btn-danger">
                     <i class="bi bi-trash"></i> Eliminar
                 </a>

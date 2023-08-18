@@ -8,6 +8,7 @@
 
 ```
 pip install -r requirements.txt
+
 ```
 
 ## Instrucciones para entrar al panel aministrativo de Django
@@ -21,32 +22,27 @@ python manage.py createsuperuser
 ```
 
 # Superusuario de pruebas
-username: usuario
-password: prueba1234
+
+username: superprueba
+password: superusuario
 
 # Usuarios normales
-username: usuarionormal
-password: usuario9876
+username: prueba
+password: usuarioprueba
 
 
 # Funcionalidades
 ## Recorda correr python manage.py runserver
 El proyecto tiene las siguientes funcionalidades principales para los usuarios:
 
-Búsqueda de Comisiones:
-Permite buscar cursos por número de comisión.
+Gestión de Articulos:
+Crear Articulos,
+Editar Articulos,
+Borrar Articulos
 
-Gestión de Cursos:
-Crear cursos.
+Gestión de Perfiles:
+Crear Perfiles,
+Editar Perfiles.
 
-Gestión de Estudiantes:
-Crear estudiantes.
-
-Gestión de Profesores:
-Crear profesores.
-
-Gestión de Entregables:
-Crear entregables.
-
-El codigo de las funcionalidades se encuentra en la app de control_estudios en views.py y los html en templates.
+El codigo de las funcionalidades se encuentra en la app de control_estudios en views.py, perfiles views.py y los html en templates.
 

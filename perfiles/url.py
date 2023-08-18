@@ -7,10 +7,13 @@ from perfiles.views import *
 
 urlpatterns = [ 
    # URLS Usuario y sesion
-   path('registro/', registro, name="registro"),
-   path('login/', login_view, name="login"),
+   path('accounts/signup/', registro, name="registro"), 
+   path('accounts/login/', login_view, name="login"),
    path('logout/', CustomLogoutView.as_view(), name="logout"),
-   path('editar_mi_perfil/', MiPerfilUpdateView.as_view(), name="editar_perfil"),
+   path('accounts/profile/', MiPerfilUpdateView.as_view(), name="editar_perfil"), 
+   path('cambiar_contrasena/', cambiar_contrasena, name='cambiar_contrasena'),
    path('agregar_avatar/', agregar_avatar, name="agregar_avatar"),
 
+
    ]
+

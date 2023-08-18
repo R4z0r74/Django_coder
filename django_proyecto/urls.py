@@ -17,13 +17,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django_proyecto.views import *
+from django.conf.urls.static import static
+from django.conf import settings
+from blog_mascotas.views import ArticuloListView
+
+
+
+
 #URL GENERALES
 
 urlpatterns = [
 path("admin/", admin.site.urls),
-path("", inicio, name="inicio"),
+path("", ArticuloListView.as_view(), name="pages"), #CAMBIAR PARA QUE LLEVE A LISTA_ARTICULOS
 #Anexo las url de control estudios bajo el path estudios/ y perfiles bajo el path perfiles/
-path("estudios/",include("control_estudios.url")),
+path("blog/",include("blog_mascotas.url")),
 path("perfiles/",include("perfiles.url")),
 
+
+
 ]
+
+#Para que carguen las imagenes bien
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    

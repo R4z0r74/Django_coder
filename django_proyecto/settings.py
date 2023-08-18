@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "control_estudios",
+    "blog_mascotas",
     "perfiles",
+    'widget_tweaks',
+    # "ckeditor",
 ]
 
 
@@ -60,7 +62,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'plantillas/',
-            BASE_DIR / 'control_estudios/templates/',
+            BASE_DIR / 'blog_mascotas/templates/',
             BASE_DIR / 'perfiles/templates/',
         ],
         'APP_DIRS': True,
@@ -140,3 +142,14 @@ LOGIN_URL = 'login'
 #Para usar imagenes
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+#Para mejor visualizasion del campo cuerpo
+# MEDIA_URL = '/media/'
+# CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': None,
+#     },
+# }

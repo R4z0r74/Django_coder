@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Detalle articulo
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">{{ object.titulo }}</h2>
+            <p class="card-text">{{ object.cuerpo }}</p>
+            <p class="card-text">
+                <strong>Autor:</strong> {{ object.autor }}
+                <br>
+                <strong>Fecha:</strong> {{ object.fecha }}
+            </p>
+            <a href="{% url 'pages' %}" class="btn btn-primary">Volver a la lista</a>
+            {% if user.is_authenticated and object.autor == user %}
+                <a href="{% url 'detalle_articulo' object.pk %}" class="btn btn-info">Editar</a>
+                <a href="{% url 'borrar_articulo' object.pk %}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

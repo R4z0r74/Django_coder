@@ -5,11 +5,21 @@ Avatar
 {% endblock titulo %}
 
 {% block contenido %}
-<h3>Subir tu Avatar</h3>
-<!--ectype permite enviar archivos mediante un formulario-->
-<form method="post" enctype="multipart/form-data"> 
- {% csrf_token %}
- {{ form.as_p }}
- <input type="submit" value="Subir imagen"/>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-6 mx-auto">
+            <h3 class="mb-4">Subir tu Avatar</h3>
+            <!--ectype permite enviar archivos mediante un formulario-->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-3">Subir Imagen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock contenido %}
+
+

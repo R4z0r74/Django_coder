@@ -1,19 +1,14 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import LogoutView
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from perfiles.forms import *
-
-
-# Create your views here.
-
-
-
 from perfiles.forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
+# Create your views here.
 
 def registro(request):
    if request.method == "POST":
@@ -21,7 +16,7 @@ def registro(request):
 
        if formulario.is_valid():
            formulario.save()  # Esto lo puedo usar porque es un model form
-           url_exitosa = reverse('inicio')
+           url_exitosa = reverse('pages')
            return redirect(url_exitosa)
    else:  # GET
        formulario = UserRegisterForm()
@@ -46,7 +41,7 @@ def login_view(request):
                login(request=request, user=user)
                if next_url:
                    return redirect(next_url)
-               url_exitosa = reverse('inicio')
+               url_exitosa = reverse('pages')
                return redirect(url_exitosa)
    else:  # GET
        form = AuthenticationForm()
@@ -56,18 +51,29 @@ def login_view(request):
        context={'form': form},
    )
 
-
 class CustomLogoutView(LogoutView):
    template_name = 'perfiles/logout.html'
 
 #Para editar datos
 class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
    form_class = UserUpdateForm
-   success_url = reverse_lazy('inicio')
+   success_url = reverse_lazy('post')
    template_name = 'perfiles/formulario_perfiles.html'
 
    def get_object(self, queryset=None):
        return self.request.user
+
+@login_required
+def cambiar_contrasena(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('cambiar_contrasena')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'perfiles/cambiar_contrasena.html', {'form': form})
 
 #Pára el avatar
 def agregar_avatar(request):
@@ -78,7 +84,7 @@ def agregar_avatar(request):
           avatar = formulario.save()
           avatar.user = request.user
           avatar.save()
-          url_exitosa = reverse('inicio')
+          url_exitosa = reverse('pages')
           return redirect(url_exitosa)
   else:  # GET
       formulario = AvatarFormulario()
@@ -87,3 +93,4 @@ def agregar_avatar(request):
       template_name="perfiles/formulario_avatar.html",
       context={'form': formulario},
   )
+

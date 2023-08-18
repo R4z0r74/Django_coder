@@ -15,11 +15,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Avatar',
+            name='Articulo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('imagen', models.ImageField(blank=True, null=True, upload_to='avatares')),
-                ('user', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('titulo', models.CharField(max_length=256)),
+                ('subtitulo', models.CharField(max_length=256)),
+                ('cuerpo', models.CharField(max_length=5656)),
+                ('fecha', models.DateField()),
+                ('autor', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

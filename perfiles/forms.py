@@ -7,16 +7,19 @@ class UserRegisterForm(UserCreationForm):
    # Esto es un ModelForm
    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
    password2 = forms.CharField(label='Repetir contraseña', widget=forms.PasswordInput)
+   
 
    class Meta:
        model = User
        fields = ['last_name', 'first_name', 'username', 'email', 'password1', 'password2']
+      #  def __str__(self):
 
 class UserUpdateForm(forms.ModelForm):
 
    class Meta:
        model = User
        fields = ['last_name', 'first_name', 'email']
+       #  def __str__(self):
 
 #Para el avatar
 class AvatarFormulario(forms.ModelForm):
@@ -24,3 +27,4 @@ class AvatarFormulario(forms.ModelForm):
    class Meta:
        model = Avatar
        fields = ['imagen']
+       #  def __str__(self):

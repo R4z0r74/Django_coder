@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Avatar(models.Model):
    # Avatar es una tabla anexa de User
    # Relacion con la tabla User
